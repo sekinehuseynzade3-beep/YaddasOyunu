@@ -1,0 +1,101 @@
+<Window x:Class="YaddasOyunu.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Yaddaş oyunu" Width="1080" Height="640"
+        Background="Black" ResizeMode="CanMinimize"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+
+        <!-- Kart stili: hover zamanı rəng dəyişmir -->
+        <Style x:Key="CardStyle" TargetType="Button">
+            <Setter Property="Background" Value="#E6E6E6"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="30"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Alt düymələr: qara fon, ağ haşiyə -->
+        <Style x:Key="MenuButton" TargetType="Button">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="46"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" Background="Black" BorderBrush="White" BorderThickness="3">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#333333"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+
+        <!-- 8 kart (2 sətir x 4 sütun) -->
+        <UniformGrid Grid.Row="0" Rows="2" Columns="4" Margin="30,10,30,0">
+            <Button x:Name="Card0" Tag="0" Style="{StaticResource CardStyle}" Click="Card_Click"/>
+            <Button x:Name="Card1" Tag="1" Style="{StaticResource CardStyle}" Click="Card_Click"/>
+            <Button x:Name="Card2" Tag="2" Style="{StaticResource CardStyle}" Click="Card_Click"/>
+            <Button x:Name="Card3" Tag="3" Style="{StaticResource CardStyle}" Click="Card_Click"/>
+            <Button x:Name="Card4" Tag="4" Style="{StaticResource CardStyle}" Click="Card_Click"/>
+            <Button x:Name="Card5" Tag="5" Style="{StaticResource CardStyle}" Click="Card_Click"/>
+            <Button x:Name="Card6" Tag="6" Style="{StaticResource CardStyle}" Click="Card_Click"/>
+            <Button x:Name="Card7" Tag="7" Style="{StaticResource CardStyle}" Click="Card_Click"/>
+        </UniformGrid>
+
+        <!-- Alt panel -->
+        <Grid Grid.Row="1" Margin="60,0,60,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Xal -->
+            <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0,0,0">
+                <TextBlock Text="Xal:" Foreground="White" FontSize="30" FontWeight="Bold"/>
+                <TextBlock x:Name="ScoreText" Text="0" Foreground="White" FontSize="30"
+                           FontWeight="Bold" Margin="14,0,0,0"/>
+            </StackPanel>
+
+            <!-- ✅ və ❌ göstəriciləri -->
+            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Border x:Name="OkIcon" Width="60" Height="60" CornerRadius="10" Background="#2E9E4F" Margin="0,0,16,0">
+                    <TextBlock Text="✔" Foreground="White" FontSize="40" FontWeight="Bold"
+                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Border>
+                <Border x:Name="WrongIcon" Width="60" Height="60" CornerRadius="10" Background="#E02424">
+                    <TextBlock Text="✖" Foreground="White" FontSize="40" FontWeight="Bold"
+                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Border>
+            </StackPanel>
+
+            <Button Grid.Column="2" Content="Yeni oyun" Style="{StaticResource MenuButton}"
+                    Margin="0,0,60,0" Click="NewGame_Click"/>
+            <Button Grid.Column="3" Content="Çıxış" Style="{StaticResource MenuButton}"
+                    Click="Exit_Click"/>
+        </Grid>
+    </Grid>
+</Window>
